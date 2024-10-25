@@ -1,0 +1,10 @@
+[package]
+name = "vkrend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.90"
+ash = "0.37.2"
+
+

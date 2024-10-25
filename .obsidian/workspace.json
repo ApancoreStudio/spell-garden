@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "43eb251163fee2ad",
+        "id": "5826631e33161a38",
         "type": "tabs",
         "children": [
           {
-            "id": "c1bdce9590e9d670",
+            "id": "70dba5b8c2c90ac1",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "icon": "lucide-file",
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -137,7 +137,8 @@
               "title": "Структура"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -154,14 +155,14 @@
       "command-palette:Открыть палитру команд": false
     }
   },
-  "active": "c1bdce9590e9d670",
+  "active": "70dba5b8c2c90ac1",
   "lastOpenFiles": [
+    "Без названия.canvas",
     "РоудМап.canvas",
     "DEMO.png",
     "Tree_Of_Spelling.png",
     "Размышления о игре.md",
     "ИГРА.canvas",
-    "Без названия.canvas",
     "Pasted image 20241025220145.png",
     "Название.md",
     "Без названия"

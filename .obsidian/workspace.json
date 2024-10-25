@@ -11,10 +11,17 @@
             "id": "70dba5b8c2c90ac1",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "Новая вкладка"
+              "type": "canvas",
+              "state": {
+                "file": "РоудМап.canvas",
+                "viewState": {
+                  "x": -82.56252642016035,
+                  "y": 56.8471752264623,
+                  "zoom": -0.12698439028303565
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "РоудМап"
             }
           }
         ]
@@ -157,12 +164,12 @@
   },
   "active": "70dba5b8c2c90ac1",
   "lastOpenFiles": [
-    "Без названия.canvas",
-    "РоудМап.canvas",
     "DEMO.png",
     "Tree_Of_Spelling.png",
-    "Размышления о игре.md",
     "ИГРА.canvas",
+    "РоудМап.canvas",
+    "Размышления о игре.md",
+    "Без названия.canvas",
     "Pasted image 20241025220145.png",
     "Название.md",
     "Без названия"

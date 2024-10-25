@@ -28,18 +28,62 @@
             "id": "bafe8d80d9d9555d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "plag.md",
-                "mode": "source",
-                "source": false
+                "file": "files/Tree_Of_Spelling.png"
               },
-              "icon": "lucide-file",
-              "title": "plag"
+              "icon": "lucide-image",
+              "title": "Tree_Of_Spelling"
+            }
+          },
+          {
+            "id": "c35914ea16141c55",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "files/DEMO.png"
+              },
+              "icon": "lucide-image",
+              "title": "DEMO"
+            }
+          },
+          {
+            "id": "1f003704bbe89759",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "files/РоудМап.canvas",
+                "viewState": {
+                  "x": -99,
+                  "y": -140,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "РоудМап"
+            }
+          },
+          {
+            "id": "04a8d7a6ec085dea",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "files/ИГРА.canvas",
+                "viewState": {
+                  "x": -241.5,
+                  "y": -290,
+                  "zoom": -0.344381531945045
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "ИГРА"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -177,17 +221,17 @@
       "command-palette:Открыть палитру команд": false
     }
   },
-  "active": "bafe8d80d9d9555d",
+  "active": "a4d7003aa541c7f7",
   "lastOpenFiles": [
-    "РоудМап.canvas",
+    "files/РоудМап.canvas",
+    "files/DEMO.png",
+    "files/Tree_Of_Spelling.png",
+    "files",
     "plag.md",
-    "DEMO.png",
-    "Tree_Of_Spelling.png",
-    "ИГРА.canvas",
+    "files/ИГРА.canvas",
     "Размышления о игре.md",
     "Без названия.canvas",
     "Pasted image 20241025220145.png",
-    "Название.md",
-    "Без названия"
+    "Название.md"
   ]
 }

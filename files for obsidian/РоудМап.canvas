@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"id":"69be8fa9bf1edd45","type":"text","text":"ИГРА","x":-261,"y":-380,"width":125,"height":60},
+		{"id":"a11fcdd29462b4f5","type":"text","text":"Гера","x":-257,"y":-232,"width":118,"height":60},
+		{"id":"6dbd18051ad7ee41","type":"text","text":"Женя","x":-620,"y":-232,"width":126,"height":60},
+		{"id":"6080b4f89e8f5943","type":"text","text":"Ваня","x":120,"y":-232,"width":107,"height":60},
+		{"id":"37eeb1248084ea31","type":"text","text":"- [ ] Цифровой сад","x":-309,"y":-120,"width":221,"height":60},
+		{"id":"df43efb97655ab23","type":"text","text":"- [ ] шейдеры","x":-655,"y":-120,"width":196,"height":60},
+		{"id":"3e059dae5e780ebf","type":"text","text":"- [ ] Тайлы","x":90,"y":-120,"width":167,"height":60},
+		{"id":"afe7180a8742d207","type":"text","text":"- [x] Ветка в git","x":325,"y":-345,"width":195,"height":60},
+		{"id":"ee8a47985225e29a","type":"text","text":"1. - [ ] Vulkan + Vulkano рендер\n2. - [ ] Импорт obj\n3. - [ ] Импорт шейдеров","x":-338,"y":-20,"width":278,"height":180},
+		{"id":"de6e60e0ced9838d","type":"text","text":"Полигон тесте шейдеров","x":-682,"y":20,"width":250,"height":60},
+		{"id":"96b47fc042ce096a","type":"text","text":"Рендер + команды для obj","x":49,"y":20,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"5714481abcf46c73","fromNode":"69be8fa9bf1edd45","fromSide":"bottom","toNode":"6dbd18051ad7ee41","toSide":"top"},
+		{"id":"591f63b656b4add3","fromNode":"69be8fa9bf1edd45","fromSide":"bottom","toNode":"a11fcdd29462b4f5","toSide":"top"},
+		{"id":"e0f277622d631505","fromNode":"69be8fa9bf1edd45","fromSide":"bottom","toNode":"6080b4f89e8f5943","toSide":"top"},
+		{"id":"6b0d6f869702e862","fromNode":"a11fcdd29462b4f5","fromSide":"bottom","toNode":"37eeb1248084ea31","toSide":"top"},
+		{"id":"e4cd964b0087e920","fromNode":"6dbd18051ad7ee41","fromSide":"bottom","toNode":"df43efb97655ab23","toSide":"top"},
+		{"id":"80e7392af7122154","fromNode":"6080b4f89e8f5943","fromSide":"bottom","toNode":"3e059dae5e780ebf","toSide":"top"},
+		{"id":"d3ed8d739a836348","fromNode":"6080b4f89e8f5943","fromSide":"right","toNode":"afe7180a8742d207","toSide":"left"},
+		{"id":"356ef8bd8be82c45","fromNode":"ee8a47985225e29a","fromSide":"left","toNode":"de6e60e0ced9838d","toSide":"right"},
+		{"id":"f1049d748995013f","fromNode":"df43efb97655ab23","fromSide":"bottom","toNode":"de6e60e0ced9838d","toSide":"top"},
+		{"id":"f6eea4bd0d3743f7","fromNode":"37eeb1248084ea31","fromSide":"bottom","toNode":"ee8a47985225e29a","toSide":"top"},
+		{"id":"c501b310e23adf29","fromNode":"ee8a47985225e29a","fromSide":"right","toNode":"96b47fc042ce096a","toSide":"left"},
+		{"id":"988d81571b771cc8","fromNode":"3e059dae5e780ebf","fromSide":"bottom","toNode":"96b47fc042ce096a","toSide":"top"}
+	]
+}

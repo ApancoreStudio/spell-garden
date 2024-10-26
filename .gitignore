@@ -1,0 +1,5 @@
+### Obsidian ###
+# config dir
+.obsidian/app.json
+.obsidian/appearance.json
+.obsidian/workspace.json

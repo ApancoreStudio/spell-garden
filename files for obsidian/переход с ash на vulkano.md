@@ -104,7 +104,7 @@ use vulkano::memory::allocator::StandardMemoryAllocator;
 let memory_allocator = Arc::new(StandardMemoryAllocator::new_default(device.clone()));
 ```
 Поскольку `device` это есть `Arc<Device>` (в Rust — это умный указатель для обмена данными между потоками. Расшифровывается как atomic reference counter, то есть атомарный подсчёт ссылок) то  нам необходимо его клонировать через `clone()` дабы он не был выброшен из памяти после отработки функции `new_default()` 
-#### ==***Разбор полётов:==***
+#### ***Разбор полётов:***
 Дело в том, что Vulkan позволяет работать с несколькими типами памяти, и каждый подходит под конкретные задачи. Потому конфигурации работы памяти это очень важная и сложная часть для начальной инициализации. 
 
 1. И так, начнём же с [***фильтров типов памяти***](https://docs.rs/vulkano/0.34.0/vulkano/memory/allocator/struct.MemoryTypeFilter.html), всего их 3 вида:
@@ -115,7 +115,8 @@ let memory_allocator = Arc::new(StandardMemoryAllocator::new_default(device.clon
 
 для начала добавим зависимости:
 ```rust
-use vulkano::buffer::{Buffer, BufferCreateInfo, BufferUsage}; use vulkano::memory::allocator::{AllocationCreateInfo, MemoryTypeFilter};
+use vulkano::buffer::{Buffer, BufferCreateInfo, BufferUsage}; 
+use vulkano::memory::allocator::{AllocationCreateInfo, MemoryTypeFilter};
 ```
 создадим тестовый буфер содержащий в себе число типа `i32`:
 ```rust
@@ -135,3 +136,76 @@ let buffer = Buffer::from_data(
 .expect("failed to create buffer");
 ```
  2. Информация о создании буфера. Тут всё по дефолту, единственное, что необходимо менять - [предназначение буфера](https://docs.rs/vulkano/0.34.0/vulkano/buffer/struct.BufferUsage.html) 
+ 3. Информация о создании выделения. А именно [фильтр типа памяти](https://docs.rs/vulkano/0.34.0/vulkano/memory/allocator/struct.MemoryTypeFilter.html). Если мы используем то, что должно быть доступно и процессору и графическому девайсу:
+	 1. `MemoryTypeFilter::PREFER_HOST | MemoryTypeFilter::HOST_SEQUENTIAL_WRITE` - чаще всего используется
+	 2. `MemoryTypeFilter::PREFER_HOST | MemoryTypeFilter::HOST_RANDOM_ACCESS` - повысит производительность если ситуация требует непрерывно записывать данные в этот буфер.
+	Если же требуется доступ только графическому девайсу: 
+	3. `MemoryTypeFilter::PREFER_DEVICE`  - (если такой тип памяти существует) недоступный для процессора. В таком случае надо создавать промежуточный буфер, содержимое которого копируется в локальный буфер девайса. Нельзя напрямую использовать с `Buffer::from_data`.
+4. Содержимое буфера, в примере выше это содержимое = 12 (целое число)
+
+Но в буфер (очевидно) можно помещать не только целые числа, но (что будет чаще всего) структуры и вообще любые типы данных. Разберём в примере ниже:
+```rust
+use vulkano::buffer::BufferContents; 
+
+#[derive(BufferContents)] 
+#[repr(C)] 
+struct MyStruct { 
+	a: u32, 
+	b: u32, 
+} 
+
+let data = MyStruct { a: 5, b: 69 }; 
+let buffer = Buffer::from_data( 
+	memory_allocator.clone(),
+	BufferCreateInfo {
+		usage: BufferUsage::UNIFORM_BUFFER,
+		..Default::default()
+	}, AllocationCreateInfo { 
+		memory_type_filter: MemoryTypeFilter::PREFER_DEVICE 
+			| MemoryTypeFilter::HOST_SEQUENTIAL_WRITE,
+		..Default::default()
+		},
+		data,
+)
+.unwrap();
+```
+Тут вставка `#[derive(BufferContents)]` и  `#[repr(C)]` - необходимые атребуты на то, чтобы компилятор собирал данный фрагмент согласно стандартам в языке программирования С. Это важно для совместимости с кодом на C и для работы с низкоуровневыми данными. Использование атрибута `#[repr(C)]` гарантирует, что структура будет иметь фиксированный размер и порядок полей.
+
+Конечно же в буфер можно помещать и массивы. Однако на практике мы можем и не знать заранее размерность массива, потому вместо метода `from_data()` мы используем `from_iter()`, очевидно передавая в него уже не массив, а итерируемый объект. Рассмотрим пример:
+```rust
+let iter = (0..128).map(|_| 5u8);
+let buffer = Buffer::from_iter(
+    memory_allocator.clone(),
+    BufferCreateInfo {
+        usage: BufferUsage::UNIFORM_BUFFER,
+        ..Default::default()
+    },
+    AllocationCreateInfo {
+        memory_type_filter: MemoryTypeFilter::PREFER_DEVICE
+            | MemoryTypeFilter::HOST_SEQUENTIAL_WRITE,
+        ..Default::default()
+    },
+    iter,
+)
+.unwrap();
+```
+Попробуем описать строку `let iter = (0..128).map(|_| 5u8);` чуть подробнее.
+Тут создаётся итерируемый объект который содержит значение `5` типа `u8` 128 раз. Такой тип буфера будет `[u8]`, это даёт компилятору понять, что размер массива будет известен только во время выполнения кода программы.
+
+Наконец: Чтение и запись из\в буфер. 
+ВАЖНО: если буфер доступен процессору - с ним возможно взаимодействовать через паттерны `read()` и `write()`, при том надо учитывать, что эти паттерны предаставляют разный доступ владения информацией.
+Например, если в буфере у нас пример с `MyStruct`:
+```rust
+let mut content = buffer.write().unwrap(); 
+// `content` реализует `DerefMut`, целевой объект которого имеет тип `MyStruct` (содержимое буфера).
+content.a *= 2; 
+content.b = 9;
+```
+Очевиден и случай с итерируемым объектом:
+```rust
+let mut content = buffer.write().unwrap();
+// на этот раз "content" разыменовывается на `[u8]`
+content[12] = 83; 
+content[7] = 3;
+```
+Ну и важно запомнить, что подобные операции доступны только для буферов, к которым процессор имеет непосредственный доступ. 

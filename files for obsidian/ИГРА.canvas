@@ -13,7 +13,6 @@
 		{"id":"4fac1c21ee36e271","type":"text","text":"Генерируемые растения с свойсвами описывающими внешний вид растения","x":-981,"y":-40,"width":281,"height":90,"color":"2"},
 		{"id":"fedccc5f4890689c","type":"text","text":"Ген персонажа - 2х мерный автомат типа \"губка\"","x":-144,"y":85,"width":221,"height":95,"color":"2"},
 		{"id":"ac18415f729c50cf","type":"text","text":"2х мерный платформер с отдельными окнами \"генов\" и \"деревьев\"","x":-729,"y":-664,"width":250,"height":114,"color":"2"},
-		{"id":"b53870471d8e33d9","type":"text","text":"[[Rust]] + [[Изучение Vulkan]]","x":-949,"y":-760,"width":249,"height":60,"color":"2"},
 		{"id":"e4d872fa68ac9fcb","type":"text","text":"[[Rust]] + [[Изучение Vulkan]]","x":403,"y":-680,"width":249,"height":60,"color":"2"},
 		{"id":"fb6a25a3f218b00d","type":"text","text":"3х мерный куб с разрастающимся алгоритмом и окном ввода заклинания","x":400,"y":-580,"width":255,"height":127},
 		{"id":"5649b22d66fb8338","type":"text","text":"Фамильяры:\n*Дикий*\n*Прирученый*\n*Созданный*","x":-1151,"y":-192,"width":170,"height":118,"color":"2"},
@@ -22,7 +21,13 @@
 		{"id":"c440f3278665217f","type":"text","text":"Минералы вбирающие в себя эфир","x":-1120,"y":-486,"width":320,"height":86},
 		{"id":"66ff74822d176fc5","type":"text","text":"ПОД ВОПРОСОМ","x":-440,"y":-740,"width":250,"height":60,"color":"1"},
 		{"id":"adfda28212d0687c","type":"text","text":"НУЖНО ДОРАБОТАТЬ","x":-216,"y":-820,"width":245,"height":60,"color":"2"},
-		{"id":"316caac0bca7af91","type":"text","text":"УЖЕ ГОТОВО","x":0,"y":-740,"width":250,"height":60,"color":"4"}
+		{"id":"316caac0bca7af91","type":"text","text":"УЖЕ ГОТОВО","x":0,"y":-740,"width":250,"height":60,"color":"4"},
+		{"id":"292fbc639b882aff","x":-637,"y":-900,"width":248,"height":50,"color":"2","type":"text","text":"Движок на Rust"},
+		{"id":"b53870471d8e33d9","type":"text","text":"[[Rust]] + [[Изучение Vulkan]]","x":-1029,"y":-694,"width":249,"height":60,"color":"2"},
+		{"id":"b5718413f76a23ca","x":-1044,"y":-900,"width":279,"height":50,"color":"4","type":"text","text":"[[переход с ash на vulkano]]"},
+		{"id":"671333e1021ce764","x":-639,"y":-1080,"width":250,"height":60,"color":"1","type":"text","text":"не евклидово пространство"},
+		{"id":"4c689599dd56bbd2","x":-928,"y":-1005,"width":250,"height":60,"color":"2","type":"text","text":"пиксельный шейдер"},
+		{"id":"af914a3cf851ab7d","x":-370,"y":-1005,"width":180,"height":60,"color":"2","type":"text","text":"процедурная анимация"}
 	],
 	"edges":[
 		{"id":"848babc222cf9abc","fromNode":"fcd9674d6647941d","fromSide":"bottom","toNode":"7f5a2a3be8e585d5","toSide":"top"},
@@ -46,6 +51,12 @@
 		{"id":"453620e18f40a860","fromNode":"fb6a25a3f218b00d","fromSide":"top","toNode":"e4d872fa68ac9fcb","toSide":"bottom"},
 		{"id":"b81f704ceb7c59eb","fromNode":"7b733f308a2015eb","fromSide":"left","toNode":"fb6a25a3f218b00d","toSide":"left"},
 		{"id":"824b905c984c7a7d","fromNode":"68631ca6dfd3d672","fromSide":"top","toNode":"c440f3278665217f","toSide":"bottom"},
-		{"id":"7da30ac70175a75f","fromNode":"fcd9674d6647941d","fromSide":"bottom","toNode":"5d82e0f70621b26a","toSide":"top"}
+		{"id":"7da30ac70175a75f","fromNode":"fcd9674d6647941d","fromSide":"bottom","toNode":"5d82e0f70621b26a","toSide":"top"},
+		{"id":"e45e26aeb24efa3a","fromNode":"b53870471d8e33d9","fromSide":"top","toNode":"b5718413f76a23ca","toSide":"bottom"},
+		{"id":"55a996a424e4623c","fromNode":"fcd9674d6647941d","fromSide":"left","toNode":"292fbc639b882aff","toSide":"bottom"},
+		{"id":"909ddd14a8b049fc","fromNode":"292fbc639b882aff","fromSide":"bottom","toNode":"b5718413f76a23ca","toSide":"bottom"},
+		{"id":"25a7390a5a4e8d73","fromNode":"292fbc639b882aff","fromSide":"top","toNode":"671333e1021ce764","toSide":"bottom"},
+		{"id":"613066717bf3021a","fromNode":"292fbc639b882aff","fromSide":"top","toNode":"4c689599dd56bbd2","toSide":"right"},
+		{"id":"d07178f4a859382d","fromNode":"292fbc639b882aff","fromSide":"top","toNode":"af914a3cf851ab7d","toSide":"left"}
 	]
 }

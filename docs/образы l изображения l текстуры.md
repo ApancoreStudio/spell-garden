@@ -60,3 +60,69 @@ let command_buffer = builder.build().unwrap();
 Здесь мы передаём значения с плавающей запятой, потому что изображение было создано в формате `R8G8B8A8_UNORM`. Часть `R8G8B8A8`. означает, что четыре компонента хранятся по 8 бит каждый, а суффикс `UNORM`. означает «беззнаковое нормализованное». «Нормализованные» координаты означают, что их значение в памяти (в диапазоне от 0 до 255) интерпретируется как значения с плавающей запятой. Значение в памяти `0`. интерпретируется как значение с плавающей запятой `0.0`. и значение в памяти `255`. интерпретируется как значение с плавающей запятой `1.0`.
 При использовании любого формата, суффикс которого — `UNORM` (а также `SNORM` и `SRGB`), все операции, выполняемые с изображением (за исключением копирования в память), рассматривают изображение так, как если бы оно содержало значения с плавающей запятой. Именно поэтому мы передаём `[0.0, 0.0, 1.0, 1.0]`. Значения `1.0` фактически будут храниться в памяти как `255`.
 #### Экспорт содержимого изображения:
+Тут мы попробуем взять наше изображение буфер и преобразовать его в понятный человеку стандарт png
+Очевидно, что нам надо создать буфер дабы забрать данные из графического процессора и провернуть над ним действия:
+```rust
+let buf = Buffer::from_iter(
+    memory_allocator.clone(),
+    BufferCreateInfo {
+        usage: BufferUsage::TRANSFER_DST,
+        ..Default::default()
+    },
+    AllocationCreateInfo {
+        memory_type_filter: MemoryTypeFilter::PREFER_HOST
+            | MemoryTypeFilter::HOST_RANDOM_ACCESS,
+        ..Default::default()
+    },
+    (0..1024 * 1024 * 4).map(|_| 0u8),
+)
+.expect("failed to create buffer");
+```
+Размер буфера - это количество "пикселей" на количество битов в нем. В нашем случае это `1024*1024*4`
+
+Теперь изменим конструктор изображения, который раньше только чистил изображение, заливая его цветом. Нам необходимо теперь дать ему возможность копировать изображение в созданный буфер:
+```rust
+use vulkano::command_buffer::CopyImageToBufferInfo;
+
+builder
+    .clear_color_image(ClearColorImageInfo {
+        clear_value: ClearColorValue::Float([0.0, 0.0, 1.0, 1.0]),
+        ..ClearColorImageInfo::image(image.clone())
+    })
+    .unwrap()
+    .copy_image_to_buffer(CopyImageToBufferInfo::image_buffer(
+        image.clone(),
+        buf.clone(),
+    ))
+    .unwrap();
+```
+Важно понять, что наш буфер это уже не изображение и 255 *не будет* интерпретироваться как 1.0
+Снова надо сделать объект `future` с методом `.wait()` как было разобрано ранее в [[переход с ash на vulkano]]
+```rust
+use vulkano::sync::{self, GpuFuture};
+
+let future = sync::now(device.clone())
+    .then_execute(queue.clone(), command_buffer)
+    .unwrap()
+    .then_signal_fence_and_flush()
+    .unwrap();
+
+future.wait(None).unwrap();
+```
+Далее добавим библиотеку работы с изображениями как зависимость cargo:
+```rust
+image = "0.24"
+```
+далее учимся работать с методом обработки изображения:
+```rust
+use image::{ImageBuffer, Rgba};
+
+let buffer_content = buf.read().unwrap();
+let image = ImageBuffer::<Rgba<u8>, _>::from_raw(1024, 1024, &buffer_content[..]).unwrap();
+```
+наконец сохраняем всё в файл и добавляем уведомление самому себе о том, что всё хорошо:
+```rust
+image.save("image.png").unwrap();
+
+println!("Everything succeeded!");
+```

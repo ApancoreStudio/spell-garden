@@ -137,5 +137,6 @@ pub fn main() {
     println!("Everything succeeded!");  
 }
 ```
-итог:
+
+### итог:
 ![[image.png]]
